@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as cheerio from "cheerio";
@@ -8,9 +8,18 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 
 const DEFAULT_URL = "https://ninesense-store.jp/shop/pages/kami";
-const url = (process.argv[2] && !process.argv[2].startsWith("-"))
-  ? process.argv[2]
-  : DEFAULT_URL;
+const siteConfigPath = path.join(rootDir, "site.json");
+
+async function readSiteUrl() {
+  try {
+    const raw = await readFile(siteConfigPath, "utf8");
+    const parsed = JSON.parse(raw);
+    const candidate = normalizeWhitespace(parsed?.url);
+    return candidate || "";
+  } catch {
+    return "";
+  }
+}
 
 const outDir = path.join(rootDir, "output");
 
@@ -616,6 +625,12 @@ for (const a of document.querySelectorAll('a[href^="#"]')) {
 
 async function main() {
   await mkdir(outDir, { recursive: true });
+
+  const argvUrl = (process.argv[2] && !process.argv[2].startsWith("-"))
+    ? process.argv[2]
+    : "";
+  const configUrl = await readSiteUrl();
+  const url = argvUrl || configUrl || DEFAULT_URL;
 
   const html = await fetchHtml(url);
   const content = extractFromHtml(html, url);
