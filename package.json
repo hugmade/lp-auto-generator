@@ -1,0 +1,13 @@
+{
+  "name": "lp-auto-generator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "npm run generate"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2"
+  }
+}
+
