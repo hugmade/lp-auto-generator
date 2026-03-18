@@ -801,3 +801,261 @@ body {
     padding: 2.75rem 1.75rem;
   }
 }
+
+/* =========================================================
+   Scene system: 1セクション1画像（比較のみ2画像）
+   - scene: セクション内の行為単位（本文＋画像）
+   - バリエーション: text-dominant / media-dominant / full-bleed / reverse / center / minimal
+   - 画像の見せ方: 背景敷き（full-bleed）, 左右配置（media-side）, 浮遊（media-float）, スライス（media-slice）, プロダクト中央（--product）
+   ========================================================= */
+
+.scene {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 4vw, 28px);
+  align-items: center;
+}
+
+.scene__content {
+  max-width: 680px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.scene__media {
+  width: 100%;
+  height: clamp(160px, 36vw, 320px);
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+}
+
+/* 配置バリエーション */
+.scene--media-dominant .scene__content {
+  max-width: 620px;
+}
+.scene--center .scene__content {
+  text-align: center;
+}
+.scene--reverse {
+  direction: rtl;
+}
+.scene--reverse .scene__content,
+.scene--reverse .scene__media {
+  direction: ltr;
+}
+.scene--media-side {
+  grid-template-columns: 1fr;
+}
+.scene--media-float .scene__media {
+  filter: saturate(1.02) contrast(1.02);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.28);
+}
+.scene--media-slice .scene__media {
+  border-radius: 0;
+  height: clamp(80px, 12vw, 120px);
+  opacity: 0.75;
+}
+.scene--media-bg .scene__media {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  border-radius: 0;
+  opacity: 0.22;
+  filter: blur(2px);
+  pointer-events: none;
+}
+.scene--full-bleed {
+  position: relative;
+}
+.scene--full-bleed .scene__media {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  border-radius: 0;
+  opacity: 0.25;
+  filter: saturate(1.05) contrast(1.05);
+  pointer-events: none;
+}
+.scene--minimal .scene__media {
+  height: 0;
+  opacity: 0;
+}
+.scene__media--ghost {
+  height: clamp(40px, 6vw, 72px);
+  border-radius: 0;
+  opacity: 0.12;
+}
+
+/* プロダクト中央象徴 */
+.scene__media--product {
+  display: grid;
+  place-items: center;
+  height: clamp(220px, 42vw, 320px);
+  background: none;
+}
+
+/* Hero: コンテンツと画像の2カラム（上は1カラム） */
+.hero-scene {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 3.5vw, 24px);
+  align-items: center;
+}
+.hero-scene__content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.hero-scene__media {
+  display: grid;
+  place-items: center;
+}
+
+/* 比較：左右2画像＋内容 */
+.compare-scene {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 3.5vw, 20px);
+  align-items: start;
+}
+.compare-scene__col {
+  display: grid;
+  gap: 10px;
+}
+.compare-scene__media {
+  width: 100%;
+  height: clamp(130px, 28vw, 220px);
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.22);
+}
+.compare-scene__col--normal .compare-scene__media {
+  filter: grayscale(12%) brightness(0.9);
+}
+.compare-scene__col--premium .compare-scene__media {
+  outline: 1px solid rgba(212,198,170,0.18);
+}
+.compare-scene__content {
+  display: grid;
+  gap: 8px;
+}
+
+/* レスポンシブで左右配置に切替 */
+@media (min-width: 820px) {
+  .scene--media-side {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(24px, 4vw, 40px);
+  }
+  .scene--reverse.scene--media-side {
+    direction: ltr;
+    grid-auto-flow: dense;
+  }
+  .scene--reverse.scene--media-side .scene__content {
+    order: 2;
+  }
+  .scene--reverse.scene--media-side .scene__media {
+    order: 1;
+  }
+  .hero-scene {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(20px, 3.2vw, 32px);
+  }
+}
+
+/* =========================================================
+   画像割当（パスは仮置き。差し替え前提）
+   ========================================================= */
+
+/* ヒーロー：商品メインビジュアル（右側メディア内に実物画像を差し替え） */
+/* 実画像が来たら .section-hero__product-placeholder を画像に置換想定 */
+
+/* 導入：抽象（光・水面）背景＋薄く全面画像 */
+.section-intro .scene--media-bg .scene__media {
+  background-image: url('assets/intro-abstract-water.jpg');
+}
+
+/* 違和感：暗くピント浅いイメージをスライス表示 */
+.section-dissonance .scene--media-slice .scene__media {
+  background-image: url('assets/dissonance-blur-dark.jpg');
+}
+
+/* 概念：浮遊する抽象（粒子/波紋） */
+.section-concept .scene--media-float .scene__media {
+  background-image: url('assets/concept-particles.jpg');
+}
+
+/* 商品の存在意義：左右配置（自然×設計の抽象） */
+.section-why-product .scene--media-side .scene__media {
+  background-image: url('assets/why-product-flow.jpg');
+}
+
+/* 商品提示（概念）：中央象徴（商品） */
+.section-product-concept .scene__media--product {
+  background-image: url('assets/product-visual-main.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 青よもぎ：全幅的背景（畑・新芽・手摘み）＋reverse で左右切替 */
+.section-why-blue-yomogi .scene--full-bleed .scene__media,
+.section-why-blue-yomogi .scene--wide .scene__media,
+.section-why-blue-yomogi .scene__media.scene__media--wide {
+  background-image: url('assets/yomogi-field.jpg');
+}
+
+/* 比較：左右2画像 */
+.section-yomogi-difference .compare-scene__col--normal .compare-scene__media {
+  background-image: url('assets/compare-normal.jpg');
+}
+.section-yomogi-difference .compare-scene__col--premium .compare-scene__media {
+  background-image: url('assets/compare-premium.jpg');
+}
+
+/* 沖縄よもぎの優位性：全幅背景（自然 or マクロ） */
+.section-okinawa-yomogi .scene--full-bleed .scene__media,
+.section-okinawa-yomogi .scene__media.scene__media--wide {
+  background-image: url('assets/okinawa-nature.jpg');
+}
+
+/* Kami融合：重なりの抽象を背景的に薄く */
+.section-kami-fusion .scene--media-overlay .scene__media {
+  background-image: url('assets/fusion-layers.jpg');
+  opacity: 0.18;
+  filter: blur(1px);
+}
+
+/* 体験：極小（ほぼなし） → ゴースト的に淡い背景 */
+.section-experience .scene__media--ghost {
+  background-image: url('assets/experience-light.jpg');
+}
+
+/* まとめ：テキスト支配＋サイドに淡い背景 */
+.section-summary .scene--media-side .scene__media {
+  background-image: url('assets/summary-muted.jpg');
+  opacity: 0.16;
+}
+
+/* 商品提示（静か）：中央象徴（商品最終） */
+.section-product-quiet .scene__media--product {
+  background-image: url('assets/product-visual-final.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* CTA：スライス的に背景をかすかに敷く */
+.section-cta .scene--media-slice .scene__media {
+  background-image: url('assets/cta-texture.jpg');
+  opacity: 0.18;
+}
+
+/* 余白拡張：画像と文字の衝突を避ける */
+.scene .section__heading { margin-bottom: 1.6em; }
+.scene--media-dominant { row-gap: clamp(24px, 4.5vw, 40px); }
+.scene--center .scene__media--product { margin-top: clamp(16px, 3.2vw, 28px); }
+.compare-scene { margin-top: clamp(10px, 2.2vw, 16px); }
