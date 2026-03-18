@@ -1,0 +1,749 @@
+/* ========================================
+   神と青よもぎ LP — ブラッシュアップ
+   静かな森に光が差す / 澄んだ空気感 / セクションごとの空気の違い
+   ======================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ベース（やや明るめ・抜け感） */
+  --color-deep: #0f1914;
+  --color-forest: #132219;
+  --color-green: #1a2e24;
+  --color-blue-green: #1e362c;
+  --color-muted-green: #2a4036;
+  --color-kinari: #eae6de;
+  --color-kinari-soft: #f4f1ea;
+  --color-white: #fcfbf9;
+  /* 光・空気 */
+  --light-soft: rgba(255, 255, 255, 0.06);
+  --light-mid: rgba(255, 255, 255, 0.1);
+  --light-beam: rgba(255, 255, 255, 0.12);
+  --mist: rgba(232, 230, 220, 0.04);
+  --gold-subtle: rgba(212, 198, 170, 0.2);
+  --gold-touch: rgba(212, 198, 170, 0.35);
+  /* タイポ */
+  --font-serif: "Noto Serif JP", serif;
+  --line-height-body: 1.9;
+  --line-height-loose: 2.2;
+  --container-narrow: 88%;
+  --container-max: 720px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(15px, 3.8vw, 17px);
+  line-height: var(--line-height-body);
+  color: var(--color-white);
+  background-color: #111c17;
+  -webkit-font-smoothing: antialiased;
+}
+
+.lp {
+  min-height: 100vh;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(48px, 12vw, 96px) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.section__inner {
+  width: var(--container-narrow);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section__heading {
+  font-size: clamp(12px, 2.2vw, 13px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-kinari);
+  opacity: 0.8;
+  margin-bottom: 1.8em;
+}
+
+/* ---------- 1. ファーストビュー（象徴的に） ---------- */
+.section-hero {
+  background: linear-gradient(165deg, #0d1612 0%, #132219 25%, #152a20 50%, #132219 75%, #0f1914 100%);
+  text-align: center;
+  padding-top: clamp(56px, 14vw, 100px);
+}
+
+.section-hero__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 70% at 50% 0%, var(--color-forest) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-hero__light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 50% at 50% -5%, var(--light-beam) 0%, var(--light-soft) 25%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-hero__mist {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 55%, var(--mist) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.section-hero__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.section-hero__title {
+  font-size: clamp(36px, 10vw, 56px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  color: var(--color-white);
+  margin-bottom: 0.35em;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.03);
+}
+
+.section-hero__sub {
+  font-size: clamp(14px, 3.2vw, 17px);
+  font-weight: 300;
+  line-height: var(--line-height-loose);
+  color: var(--color-kinari);
+  opacity: 0.92;
+  margin-bottom: 2.8rem;
+  letter-spacing: 0.02em;
+}
+
+.section-hero__product {
+  position: relative;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+
+.section-hero__product-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 220px;
+  background: radial-gradient(ellipse 60% 70%, var(--light-soft) 0%, transparent 70%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+.section-hero__product-placeholder {
+  width: 140px;
+  height: 200px;
+  margin: 0 auto;
+  background: linear-gradient(160deg, rgba(30, 54, 44, 0.95) 0%, rgba(42, 64, 54, 0.9) 50%, rgba(26, 46, 36, 0.95) 100%);
+  border-radius: 4px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-hero__product-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 5px;
+  padding: 1px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, transparent 40%, rgba(255,255,255,0.02) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- 2. 導入（水面・光のゆらぎ） ---------- */
+.section-intro {
+  background: linear-gradient(180deg, #0f1914 0%, #15261e 20%, #1a2e26 45%, #162a22 70%, #111c17 100%);
+}
+
+.section-intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 80% at 30% 20%, var(--light-soft) 0%, transparent 45%),
+              radial-gradient(ellipse 80% 100% at 70% 60%, var(--mist) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.section-intro__lead {
+  font-size: clamp(19px, 4.5vw, 24px);
+  font-weight: 400;
+  line-height: var(--line-height-loose);
+  margin-bottom: 1.3em;
+}
+
+.section-intro__body {
+  font-size: inherit;
+  line-height: var(--line-height-loose);
+  margin-bottom: 1.1em;
+  color: var(--color-kinari-soft);
+}
+
+.section-intro__body--muted {
+  opacity: 0.78;
+  margin-bottom: 0;
+}
+
+/* ---------- 3. 違和感（少し暗め・ピントの浅い空気） ---------- */
+.section-dissonance {
+  background: linear-gradient(180deg, #0d1612 0%, #101a16 50%, #0d1612 100%);
+}
+
+.section-dissonance::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.25) 100%);
+  pointer-events: none;
+}
+
+.section-dissonance__line {
+  font-size: clamp(16px, 3.8vw, 19px);
+  margin-bottom: 0.55em;
+  color: var(--color-kinari);
+  opacity: 0.9;
+}
+
+.section-dissonance__body {
+  margin-top: 1.6em;
+  line-height: var(--line-height-loose);
+  opacity: 0.88;
+}
+
+/* ---------- 4. 新しい概念（粒子・波紋） ---------- */
+.section-concept {
+  background: #0f1914;
+  background-image: radial-gradient(2px 2px at 20% 30%, var(--light-soft) 1px, transparent 0),
+                    radial-gradient(2px 2px at 60% 70%, var(--light-soft) 1px, transparent 0),
+                    radial-gradient(3px 3px at 80% 20%, var(--mist) 1px, transparent 0),
+                    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(26, 46, 38, 0.6) 0%, transparent 60%);
+  background-size: 120px 100px, 100px 120px, 80px 80px, 100% 100%;
+}
+
+.section-concept__lead {
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: 400;
+  margin-bottom: 1.2em;
+}
+
+.section-concept__body {
+  line-height: var(--line-height-loose);
+  margin-bottom: 1em;
+  color: var(--color-kinari-soft);
+}
+
+/* ---------- 5. 商品の存在意義（深緑・霧） ---------- */
+.section-why-product {
+  background: linear-gradient(180deg, #111c17 0%, #162a22 35%, #1a2e26 55%, #132219 100%);
+}
+
+.section-why-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 60% at 50% 80%, var(--mist) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-why-product__lead {
+  font-size: clamp(17px, 4vw, 21px);
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+
+.section-why-product__body {
+  line-height: var(--line-height-loose);
+  margin-bottom: 1em;
+  color: var(--color-kinari-soft);
+}
+
+/* ---------- 6. 商品提示（概念） ---------- */
+.section-product-concept {
+  background: linear-gradient(180deg, #132219 0%, #1a2e24 50%, #15261e 100%);
+}
+
+.section-product-concept::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 30%, var(--light-soft) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.section-product-concept__name {
+  font-size: clamp(26px, 6.5vw, 36px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5em;
+}
+
+.section-product-concept__sub {
+  line-height: var(--line-height-loose);
+  margin-bottom: 0.8em;
+  color: var(--color-kinari);
+}
+
+.section-product-concept__dest {
+  font-size: clamp(14px, 3.2vw, 15px);
+  opacity: 0.88;
+  margin-bottom: 2rem;
+}
+
+.section-product-concept__visual-placeholder {
+  width: 120px;
+  height: 160px;
+  margin: 0 auto;
+  background: linear-gradient(160deg, var(--color-blue-green), var(--color-muted-green));
+  border-radius: 6px;
+  opacity: 0.5;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- 7. なぜ、青よもぎ（自然の気配・葉・やんばる） ---------- */
+.section-why-blue-yomogi {
+  background: linear-gradient(165deg, #132219 0%, #1a3026 30%, #1e362c 50%, #182c22 80%, #111c17 100%);
+}
+
+.section-why-blue-yomogi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 20% 40%, var(--mist) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 80% at 80% 60%, rgba(42, 64, 54, 0.15) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-why-blue-yomogi__lead {
+  font-size: clamp(16px, 3.8vw, 19px);
+  margin-bottom: 1em;
+}
+
+.section-why-blue-yomogi__body {
+  line-height: var(--line-height-loose);
+  margin-bottom: 1em;
+  color: var(--color-kinari-soft);
+}
+
+.section-why-blue-yomogi__body--accent {
+  margin-top: 1.2em;
+  opacity: 0.95;
+}
+
+.section-why-blue-yomogi__visual {
+  margin-top: 2.2rem;
+}
+
+.section-why-blue-yomogi__visual-placeholder {
+  width: 100%;
+  max-width: 320px;
+  height: 180px;
+  margin: 0 auto;
+  background: linear-gradient(165deg, var(--color-blue-green) 0%, var(--color-muted-green) 50%, var(--color-green) 100%);
+  border-radius: 8px;
+  opacity: 0.45;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- 8. 普通のよもぎとの違い（上品な左右対比） ---------- */
+.section-yomogi-difference {
+  background: linear-gradient(180deg, #111c17 0%, #15261e 50%, #132219 100%);
+}
+
+.section-yomogi-difference__lead {
+  font-size: clamp(16px, 3.8vw, 18px);
+  margin-bottom: 0.6em;
+}
+
+.section-yomogi-difference__body {
+  line-height: var(--line-height-loose);
+  margin-bottom: 2rem;
+  color: var(--color-kinari-soft);
+}
+
+.section-yomogi-difference__compare {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-top: 0;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.compare-world {
+  padding: 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.compare-world--normal {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: none;
+  border-radius: 2px 0 0 2px;
+}
+
+.compare-world--premium {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 198, 170, 0.12);
+  border-left: none;
+  border-radius: 0 2px 2px 0;
+}
+
+.compare-world__divider {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.06), transparent);
+  flex-shrink: 0;
+}
+
+.compare-world__label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-kinari);
+  opacity: 0.75;
+}
+
+.compare-world--premium .compare-world__label {
+  opacity: 0.9;
+  color: var(--color-kinari-soft);
+}
+
+.compare-world__frame {
+  width: 100%;
+  height: 72px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  margin: 0.25rem 0;
+}
+
+.compare-world--premium .compare-world__frame {
+  background: linear-gradient(160deg, rgba(30, 54, 44, 0.5), rgba(42, 64, 54, 0.4));
+}
+
+.compare-world__text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--color-kinari-soft);
+  opacity: 0.9;
+}
+
+.compare-world__detail {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-kinari);
+  opacity: 0.85;
+  margin-top: 0.25rem;
+}
+
+.compare-world__detail--accent {
+  opacity: 0.95;
+  margin-top: 0.5rem;
+}
+
+/* ---------- 9. 沖縄よもぎの優位性 ---------- */
+.section-okinawa-yomogi {
+  background: linear-gradient(180deg, #132219 0%, #1e362c 40%, #1a2e24 100%);
+}
+
+.section-okinawa-yomogi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 60% 30%, var(--mist) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-okinawa-yomogi__body {
+  line-height: var(--line-height-loose);
+  margin-bottom: 1em;
+  color: var(--color-kinari-soft);
+}
+
+.section-okinawa-yomogi__body--accent {
+  margin-top: 1em;
+  opacity: 0.95;
+}
+
+/* ---------- 10. Kamiとの融合（2つが重なるレイヤー） ---------- */
+.section-kami-fusion {
+  background: #132219;
+}
+
+.section-kami-fusion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 70% at 25% 50%, rgba(26, 46, 38, 0.9) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-kami-fusion::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 70% at 75% 50%, rgba(30, 54, 44, 0.85) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.section-kami-fusion__line {
+  font-size: clamp(16px, 3.8vw, 19px);
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+
+.section-kami-fusion__body {
+  line-height: var(--line-height-loose);
+  margin-top: 1em;
+  color: var(--color-kinari-soft);
+}
+
+.section-kami-fusion__body--accent {
+  margin-top: 1.2em;
+  opacity: 0.95;
+}
+
+/* ---------- 11. 体験（状態変化） ---------- */
+.section-experience {
+  background: linear-gradient(180deg, #0f1914 0%, #162a22 45%, #132219 100%);
+}
+
+.section-experience::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 20%, var(--light-soft) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.section-experience__lead {
+  font-size: clamp(17px, 4vw, 21px);
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+
+.section-experience__body {
+  line-height: var(--line-height-loose);
+  margin-bottom: 0.8em;
+  color: var(--color-kinari-soft);
+}
+
+.section-experience__body--accent {
+  margin-top: 1em;
+  opacity: 0.95;
+}
+
+/* ---------- 12. まとめ（呼吸感・テキストジャンプ） ---------- */
+.section-summary {
+  background: linear-gradient(180deg, #132219 0%, #15261e 50%, #111c17 100%);
+}
+
+.summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+
+.summary-grid__item {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.summary-grid__item:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.summary-grid__item:nth-child(1) { padding-top: 0.5rem; }
+.summary-grid__item:nth-child(2) { padding-top: 1.6rem; padding-bottom: 1.5rem; }
+.summary-grid__item:nth-child(3) { padding-top: 1.4rem; padding-bottom: 1.6rem; }
+.summary-grid__item:nth-child(4) { padding-top: 1.2rem; padding-bottom: 0.5rem; border-bottom: none; }
+
+.summary-grid__label {
+  font-size: clamp(15px, 3.5vw, 17px);
+  font-weight: 400;
+  color: var(--color-kinari);
+  letter-spacing: 0.02em;
+}
+
+.summary-grid__text {
+  font-size: 13px;
+  color: var(--color-kinari-soft);
+  opacity: 0.88;
+  line-height: 1.65;
+}
+
+.section-summary__close {
+  font-size: clamp(15px, 3.5vw, 17px);
+  line-height: var(--line-height-loose);
+  text-align: center;
+  color: var(--color-kinari);
+  opacity: 0.9;
+}
+
+/* ---------- 13. 商品提示（静かに） ---------- */
+.section-product-quiet {
+  background: linear-gradient(180deg, #0f1914 0%, #132219 40%, #0f1914 100%);
+}
+
+.section-product-quiet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 45%, var(--light-soft) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.section-product-quiet__name {
+  font-size: clamp(24px, 6vw, 32px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin-bottom: 0.25em;
+}
+
+.section-product-quiet__sub {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  color: var(--color-kinari);
+  opacity: 0.8;
+  margin-bottom: 2.2rem;
+}
+
+.section-product-quiet__visual-placeholder {
+  width: 100px;
+  height: 140px;
+  margin: 0 auto;
+  background: linear-gradient(160deg, var(--color-blue-green), var(--color-muted-green));
+  border-radius: 6px;
+  opacity: 0.45;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- 14. CTA（ブランドらしく・浮かせない） ---------- */
+.section-cta {
+  background: linear-gradient(180deg, #111c17 0%, #132219 30%, #15261e 60%, #111c17 100%);
+}
+
+.section-cta__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 60%, var(--mist) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.section-cta__lead {
+  font-size: clamp(15px, 3.5vw, 17px);
+  text-align: center;
+  margin-bottom: 1.75rem;
+  color: var(--color-kinari);
+  opacity: 0.9;
+}
+
+.section-cta__btn {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  padding: 0.95rem 1.5rem;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-align: center;
+  color: var(--color-kinari);
+  background: transparent;
+  border: 1px solid rgba(232, 228, 220, 0.35);
+  border-radius: 0;
+  text-decoration: none;
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.section-cta__btn:hover {
+  border-color: rgba(232, 228, 220, 0.55);
+  color: var(--color-kinari-soft);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ---------- 15. クロージング ---------- */
+.section-closing {
+  background: #0f1914;
+  padding: clamp(72px, 18vw, 140px) 0;
+}
+
+.section-closing__text {
+  font-size: clamp(15px, 3.5vw, 17px);
+  line-height: var(--line-height-loose);
+  text-align: center;
+  color: var(--color-kinari);
+  opacity: 0.82;
+}
+
+/* スクロールフェード */
+.section:not(.section-hero) > .section__inner {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.section:not(.section-hero).is-inview > .section__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section > .section__inner {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .section__inner {
+    width: 82%;
+  }
+
+  .section-yomogi-difference__compare {
+    max-width: 520px;
+    grid-template-columns: 1fr 1px 1fr;
+  }
+
+  .compare-world {
+    padding: 2.25rem 1.5rem;
+  }
+}
