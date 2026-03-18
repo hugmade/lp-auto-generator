@@ -101,9 +101,15 @@ body {
 
 /* ---------- 1. ヒーロー：神秘・出会い ---------- */
 .section-hero {
-  background: radial-gradient(ellipse 90% 60% at 20% 10%, var(--light-top) 0%, transparent 55%),
-              radial-gradient(ellipse 70% 55% at 70% 25%, var(--glow-warm) 0%, transparent 60%),
-              linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 45%, var(--color-mist) 100%);
+  /* hero-bg.png を主役の全面背景に */
+  background-image:
+    radial-gradient(ellipse 90% 60% at 18% 12%, rgba(255, 250, 235, 0.62) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 55% at 72% 22%, rgba(255, 236, 190, 0.42) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.42) 55%, rgba(231, 241, 231, 0.35) 100%),
+    url('assets/hero-bg.png');
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
   text-align: center;
   padding: clamp(72px, 18vw, 140px) 0 clamp(80px, 20vw, 160px);
 }
@@ -111,21 +117,24 @@ body {
 .section-hero__bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 120% 70% at 50% -10%, rgba(231, 241, 231, 0.8) 0%, transparent 55%);
+  /* 薄い白〜淡いグリーンのヴェール（暗幕にはしない） */
+  background:
+    radial-gradient(ellipse 140% 90% at 50% -10%, rgba(255, 255, 255, 0.38) 0%, transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(231, 241, 231, 0.14) 100%);
   pointer-events: none;
 }
 
 .section-hero__light {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 85% 45% at 52% -8%, var(--light-beam) 0%, var(--light-mid) 25%, transparent 68%);
+  background: radial-gradient(ellipse 85% 45% at 52% -8%, rgba(255, 246, 224, 0.6) 0%, rgba(255, 255, 255, 0.32) 28%, transparent 70%);
   pointer-events: none;
 }
 
 .section-hero__mist {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 90% 55% at 50% 58%, rgba(231, 241, 231, 0.45) 0%, transparent 52%);
+  background: radial-gradient(ellipse 95% 60% at 50% 58%, rgba(231, 241, 231, 0.28) 0%, transparent 58%);
   pointer-events: none;
 }
 
@@ -139,16 +148,16 @@ body {
   font-weight: 400;
   letter-spacing: 0.06em;
   line-height: 1.2;
-  color: var(--color-ink);
+  color: rgba(15, 26, 20, 0.92);
   margin-bottom: 0.5em;
-  text-shadow: 0 0 50px rgba(255, 255, 255, 0.55);
+  text-shadow: 0 0 42px rgba(255, 255, 255, 0.7);
 }
 
 .section-hero__sub {
   font-size: clamp(14px, 3.2vw, 17px);
   font-weight: 300;
   line-height: var(--line-height-loose);
-  color: var(--color-ink-soft);
+  color: rgba(15, 26, 20, 0.72);
   opacity: 1;
   margin-bottom: 3.5rem;
   letter-spacing: 0.03em;
@@ -156,8 +165,9 @@ body {
 
 .section-hero__product {
   position: relative;
-  margin-top: 2.5rem;
+  margin-top: 2.1rem;
   display: inline-block;
+  opacity: 0.92; /* 背景が主役なので少しだけ引く */
 }
 
 .section-hero__product-glow {
@@ -167,14 +177,14 @@ body {
   transform: translate(-50%, -50%);
   width: 220px;
   height: 280px;
-  background: radial-gradient(ellipse 55% 65%, rgba(255, 250, 235, 0.75) 0%, rgba(231, 241, 231, 0.55) 40%, transparent 72%);
+  background: radial-gradient(ellipse 55% 65%, rgba(255, 246, 224, 0.55) 0%, rgba(231, 241, 231, 0.45) 45%, transparent 74%);
   filter: blur(32px);
   pointer-events: none;
 }
 
 .section-hero__product-placeholder {
-  width: 150px;
-  height: 220px;
+  width: 138px;
+  height: 208px;
   margin: 0 auto;
   background: linear-gradient(168deg, rgba(22, 42, 34, 0.98) 0%, rgba(30, 54, 44, 0.95) 35%, rgba(26, 46, 36, 0.98) 100%);
   border-radius: 6px;
@@ -191,6 +201,7 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  filter: saturate(1.02) contrast(1.02);
 }
 
 .section-hero__product-placeholder::before {
