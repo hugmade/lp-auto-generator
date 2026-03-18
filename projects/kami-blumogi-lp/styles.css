@@ -163,60 +163,7 @@ body {
   letter-spacing: 0.03em;
 }
 
-.section-hero__product {
-  position: relative;
-  margin-top: 2.1rem;
-  display: inline-block;
-  opacity: 0.92; /* 背景が主役なので少しだけ引く */
-}
-
-.section-hero__product-glow {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 220px;
-  height: 280px;
-  background: radial-gradient(ellipse 55% 65%, rgba(255, 246, 224, 0.55) 0%, rgba(231, 241, 231, 0.45) 45%, transparent 74%);
-  filter: blur(32px);
-  pointer-events: none;
-}
-
-.section-hero__product-placeholder {
-  width: 138px;
-  height: 208px;
-  margin: 0 auto;
-  background: linear-gradient(168deg, rgba(22, 42, 34, 0.98) 0%, rgba(30, 54, 44, 0.95) 35%, rgba(26, 46, 36, 0.98) 100%);
-  border-radius: 6px;
-  box-shadow: 0 26px 56px rgba(15, 26, 20, 0.18), 0 0 0 1px rgba(15, 26, 20, 0.06), inset 0 2px 0 rgba(255, 255, 255, 0.32);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* hero-product.jpg を主役に（象徴的に） */
-.section-hero__product-placeholder {
-  background-image: url('assets/hero-product.jpg');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: saturate(1.02) contrast(1.02);
-}
-
-.section-hero__product-placeholder::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 7px;
-  padding: 1px;
-  background: linear-gradient(150deg, rgba(15,26,20,0.08) 0%, transparent 45%, rgba(255,255,255,0.5) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
+/* ヒーローは今回は「背景＋中央コピーのみ」（商品要素なし） */
 
 /* ---------- 2. 導入：水・光のゆらぎ ---------- */
 .section-intro {
@@ -1105,10 +1052,12 @@ body {
 .hero-scene__content {
   max-width: 720px;
   margin: 0 auto;
+  padding: clamp(10px, 2.4vw, 18px) clamp(10px, 3vw, 22px);
 }
+
+/* 右カラム（メディア）を廃止するための保険 */
 .hero-scene__media {
-  display: grid;
-  place-items: center;
+  display: none;
 }
 
 /* 比較：左右2画像＋内容 */
