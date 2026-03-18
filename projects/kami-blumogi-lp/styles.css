@@ -10,21 +10,28 @@
 }
 
 :root {
-  --color-deep: #0e1812;
-  --color-forest: #132219;
-  --color-green: #1a2e24;
-  --color-blue-green: #1e362c;
-  --color-muted-green: #2a4036;
-  --color-kinari: #eae6de;
-  --color-kinari-soft: #f4f1ea;
-  --color-white: #fcfbf9;
-  --light-soft: rgba(255, 255, 255, 0.07);
-  --light-mid: rgba(255, 255, 255, 0.11);
-  --light-beam: rgba(255, 255, 255, 0.14);
-  --light-top: rgba(255, 255, 255, 0.08);
-  --mist: rgba(232, 230, 220, 0.05);
-  --gold-subtle: rgba(212, 198, 170, 0.22);
-  --gold-touch: rgba(212, 198, 170, 0.4);
+  /* White base / clean air */
+  --color-ink: #0f1a14;            /* 本文（濃いグリーン寄りの墨） */
+  --color-ink-soft: rgba(15, 26, 20, 0.78);
+  --color-ink-mute: rgba(15, 26, 20, 0.62);
+
+  --color-white: #ffffff;
+  --color-paper: #fbfcfb;          /* わずかな温度感 */
+  --color-mist: #f2f7f1;           /* 淡いグリーン白 */
+  --color-sage: #e7f1e7;           /* 淡いグリーン */
+  --color-sage-2: #dff0e3;         /* もう少しグリーン */
+
+  /* Accent green (use sparingly) */
+  --accent-green: #2f7a55;
+  --accent-green-soft: rgba(47, 122, 85, 0.16);
+  --accent-line: rgba(47, 122, 85, 0.22);
+
+  /* Light (yellow-white) */
+  --light-soft: rgba(255, 255, 255, 0.72);
+  --light-mid: rgba(255, 255, 255, 0.5);
+  --light-beam: rgba(255, 246, 224, 0.55);
+  --light-top: rgba(255, 250, 235, 0.45);
+  --glow-warm: rgba(255, 236, 190, 0.42);
   --font-serif: "Noto Serif JP", serif;
   --line-height-body: 1.9;
   --line-height-loose: 2.2;
@@ -41,8 +48,8 @@ body {
   font-weight: 300;
   font-size: clamp(15px, 3.8vw, 17px);
   line-height: var(--line-height-body);
-  color: var(--color-white);
-  background-color: #101a15;
+  color: var(--color-ink);
+  background-color: var(--color-white);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -77,8 +84,8 @@ body {
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-kinari);
-  opacity: 0.75;
+  color: var(--color-ink-mute);
+  opacity: 1;
   margin-bottom: 1.8em;
 }
 
@@ -94,7 +101,9 @@ body {
 
 /* ---------- 1. ヒーロー：神秘・出会い ---------- */
 .section-hero {
-  background: linear-gradient(172deg, #0c1410 0%, #0f1a14 18%, #13261c 35%, #152a20 50%, #122218 70%, #0e1812 100%);
+  background: radial-gradient(ellipse 90% 60% at 20% 10%, var(--light-top) 0%, transparent 55%),
+              radial-gradient(ellipse 70% 55% at 70% 25%, var(--glow-warm) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 45%, var(--color-mist) 100%);
   text-align: center;
   padding: clamp(72px, 18vw, 140px) 0 clamp(80px, 20vw, 160px);
 }
@@ -102,21 +111,21 @@ body {
 .section-hero__bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 110% 65% at 50% -10%, #152a20 0%, transparent 50%);
+  background: radial-gradient(ellipse 120% 70% at 50% -10%, rgba(231, 241, 231, 0.8) 0%, transparent 55%);
   pointer-events: none;
 }
 
 .section-hero__light {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 85% 45% at 50% -8%, var(--light-beam) 0%, var(--light-mid) 20%, var(--light-soft) 40%, transparent 65%);
+  background: radial-gradient(ellipse 85% 45% at 52% -8%, var(--light-beam) 0%, var(--light-mid) 25%, transparent 68%);
   pointer-events: none;
 }
 
 .section-hero__mist {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 90% 55% at 50% 58%, var(--mist) 0%, transparent 45%);
+  background: radial-gradient(ellipse 90% 55% at 50% 58%, rgba(231, 241, 231, 0.45) 0%, transparent 52%);
   pointer-events: none;
 }
 
@@ -130,17 +139,17 @@ body {
   font-weight: 400;
   letter-spacing: 0.06em;
   line-height: 1.2;
-  color: var(--color-white);
+  color: var(--color-ink);
   margin-bottom: 0.5em;
-  text-shadow: 0 0 60px rgba(255, 255, 255, 0.04);
+  text-shadow: 0 0 50px rgba(255, 255, 255, 0.55);
 }
 
 .section-hero__sub {
   font-size: clamp(14px, 3.2vw, 17px);
   font-weight: 300;
   line-height: var(--line-height-loose);
-  color: var(--color-kinari);
-  opacity: 0.9;
+  color: var(--color-ink-soft);
+  opacity: 1;
   margin-bottom: 3.5rem;
   letter-spacing: 0.03em;
 }
@@ -158,7 +167,7 @@ body {
   transform: translate(-50%, -50%);
   width: 220px;
   height: 280px;
-  background: radial-gradient(ellipse 55% 65%, var(--light-soft) 0%, var(--mist) 35%, transparent 70%);
+  background: radial-gradient(ellipse 55% 65%, rgba(255, 250, 235, 0.75) 0%, rgba(231, 241, 231, 0.55) 40%, transparent 72%);
   filter: blur(32px);
   pointer-events: none;
 }
@@ -169,7 +178,7 @@ body {
   margin: 0 auto;
   background: linear-gradient(168deg, rgba(22, 42, 34, 0.98) 0%, rgba(30, 54, 44, 0.95) 35%, rgba(26, 46, 36, 0.98) 100%);
   border-radius: 6px;
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 2px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 26px 56px rgba(15, 26, 20, 0.18), 0 0 0 1px rgba(15, 26, 20, 0.06), inset 0 2px 0 rgba(255, 255, 255, 0.32);
   position: relative;
   display: flex;
   align-items: center;
@@ -190,7 +199,7 @@ body {
   inset: -1px;
   border-radius: 7px;
   padding: 1px;
-  background: linear-gradient(150deg, rgba(255,255,255,0.1) 0%, transparent 45%, rgba(255,255,255,0.03) 100%);
+  background: linear-gradient(150deg, rgba(15,26,20,0.08) 0%, transparent 45%, rgba(255,255,255,0.5) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -200,15 +209,16 @@ body {
 
 /* ---------- 2. 導入：水・光のゆらぎ ---------- */
 .section-intro {
-  background: linear-gradient(180deg, #0f1914 0%, #14241c 25%, #1a2e26 50%, #162a22 75%, #111c17 100%);
+  background: radial-gradient(ellipse 90% 55% at 20% 15%, var(--light-top) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 55%, var(--color-mist) 100%);
 }
 
 .section-intro::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 130% 90% at 25% 15%, var(--light-soft) 0%, transparent 50%),
-              radial-gradient(ellipse 90% 110% at 75% 65%, var(--mist) 0%, transparent 55%);
+  background: radial-gradient(ellipse 130% 90% at 25% 15%, rgba(255, 246, 224, 0.45) 0%, transparent 55%),
+              radial-gradient(ellipse 90% 110% at 75% 65%, rgba(231, 241, 231, 0.55) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -223,7 +233,7 @@ body {
   font-size: inherit;
   line-height: var(--line-height-loose);
   margin-bottom: 1.1em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 .section-intro__body--muted {
@@ -233,22 +243,23 @@ body {
 
 /* ---------- 3. 違和感：問い・暗くピントの浅い空気 ---------- */
 .section-dissonance {
-  background: linear-gradient(180deg, #0c1410 0%, #0e1814 50%, #0c1410 100%);
+  background: radial-gradient(ellipse 85% 55% at 60% 20%, rgba(231, 241, 231, 0.35) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-paper) 0%, var(--color-white) 60%, var(--color-mist) 100%);
 }
 
 .section-dissonance::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 25%, rgba(0, 0, 0, 0.35) 100%);
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, rgba(15, 26, 20, 0.12) 100%);
   pointer-events: none;
 }
 
 .section-dissonance__line {
   font-size: clamp(17px, 4vw, 20px);
   margin-bottom: 0.5em;
-  color: var(--color-kinari);
-  opacity: 0.88;
+  color: var(--color-ink);
+  opacity: 0.9;
 }
 
 .section-dissonance__body {
@@ -259,11 +270,11 @@ body {
 
 /* ---------- 4. 概念：理解・納得・粒子・波紋 ---------- */
 .section-concept {
-  background: #0e1812;
+  background: var(--color-white);
   background-image: radial-gradient(2px 2px at 18% 28%, var(--light-soft) 1px, transparent 0),
-                    radial-gradient(2px 2px at 62% 72%, var(--light-soft) 1px, transparent 0),
-                    radial-gradient(3px 3px at 82% 18%, var(--mist) 1px, transparent 0),
-                    radial-gradient(ellipse 75% 55% at 50% 50%, rgba(26, 46, 38, 0.5) 0%, transparent 65%);
+                    radial-gradient(2px 2px at 62% 72%, rgba(47, 122, 85, 0.12) 1px, transparent 0),
+                    radial-gradient(3px 3px at 82% 18%, rgba(255, 236, 190, 0.26) 1px, transparent 0),
+                    radial-gradient(ellipse 75% 55% at 50% 50%, rgba(231, 241, 231, 0.7) 0%, transparent 68%);
   background-size: 110px 95px, 95px 115px, 75px 75px, 100% 100%;
 }
 
@@ -276,19 +287,20 @@ body {
 .section-concept__body {
   line-height: var(--line-height-loose);
   margin-bottom: 1em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 /* ---------- 5. 商品の存在意義：霧・深緑 ---------- */
 .section-why-product {
-  background: linear-gradient(180deg, #101a15 0%, #152a22 38%, #1a2e26 58%, #132219 100%);
+  background: radial-gradient(ellipse 90% 55% at 20% 20%, rgba(255, 246, 224, 0.45) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-mist) 55%, var(--color-sage) 100%);
 }
 
 .section-why-product::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 100% 65% at 50% 75%, var(--mist) 0%, transparent 55%);
+  background: radial-gradient(ellipse 100% 65% at 50% 75%, rgba(231, 241, 231, 0.55) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -301,18 +313,19 @@ body {
 .section-why-product__body {
   line-height: var(--line-height-loose);
   margin-bottom: 1em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 /* ---------- 6. 商品提示（概念）：没入・象徴 ---------- */
 .section-product-concept {
-  background: linear-gradient(180deg, #122218 0%, #162c24 45%, #1a2e26 55%, #14261e 100%);
+  background: radial-gradient(ellipse 85% 60% at 50% 0%, var(--light-top) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 35%, var(--color-mist) 100%);
 }
 
 .section-product-concept__glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 55% at 50% 35%, var(--light-soft) 0%, transparent 60%);
+  background: radial-gradient(ellipse 70% 55% at 50% 35%, var(--glow-warm) 0%, transparent 62%);
   pointer-events: none;
 }
 
@@ -320,7 +333,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 55% 45% at 50% 25%, var(--light-top) 0%, transparent 55%);
+  background: radial-gradient(ellipse 55% 45% at 50% 25%, rgba(231, 241, 231, 0.65) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -334,13 +347,13 @@ body {
   font-weight: 400;
   letter-spacing: 0.05em;
   margin-bottom: 0.4em;
-  color: var(--color-white);
+  color: var(--color-ink);
 }
 
 .section-product-concept__sub {
   font-size: clamp(14px, 3.2vw, 16px);
   line-height: 1.8;
-  color: var(--color-kinari);
+  color: var(--color-ink-soft);
   opacity: 0.92;
 }
 
@@ -349,7 +362,7 @@ body {
   opacity: 0.85;
   margin-bottom: 2.5rem;
   text-align: center;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-mute);
 }
 
 .section-product-concept__visual {
@@ -385,15 +398,16 @@ body {
 
 /* ---------- 7. なぜ青よもぎ：自然・葉・やんばる ---------- */
 .section-why-blue-yomogi {
-  background: linear-gradient(165deg, #122218 0%, #1a3026 32%, #1e362c 52%, #182c22 78%, #111c17 100%);
+  background: radial-gradient(ellipse 90% 60% at 18% 12%, var(--light-top) 0%, transparent 62%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-mist) 55%, var(--color-sage) 100%);
 }
 
 .section-why-blue-yomogi::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 75% 55% at 22% 38%, var(--mist) 0%, transparent 52%),
-              radial-gradient(ellipse 55% 75% at 78% 62%, rgba(42, 64, 54, 0.18) 0%, transparent 55%);
+  background: radial-gradient(ellipse 75% 55% at 22% 38%, rgba(231, 241, 231, 0.6) 0%, transparent 56%),
+              radial-gradient(ellipse 55% 75% at 78% 62%, rgba(255, 236, 190, 0.28) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -405,7 +419,7 @@ body {
 .section-why-blue-yomogi__body {
   line-height: var(--line-height-loose);
   margin-bottom: 1em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 .section-why-blue-yomogi__body--accent {
@@ -430,14 +444,15 @@ body {
 
 /* ---------- 8. 比較：気づき・空気で伝える ---------- */
 .section-yomogi-difference {
-  background: linear-gradient(180deg, #0f1914 0%, #132219 30%, #15261e 60%, #111c17 100%);
+  background: radial-gradient(ellipse 90% 55% at 50% 0%, var(--light-top) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-paper) 0%, var(--color-white) 45%, var(--color-mist) 100%);
 }
 
 .section-yomogi-difference::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.08) 49.5%, rgba(255,255,255,0.02) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(15,26,20,0.06) 49.5%, rgba(255,255,255,0.7) 50%, transparent 100%);
   pointer-events: none;
 }
 
@@ -450,16 +465,16 @@ body {
 .section-yomogi-difference .compare-scene__col {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(15, 26, 20, 0.08);
+  background: rgba(255, 255, 255, 0.55);
 }
 .section-yomogi-difference .compare-scene__col--premium {
-  border-color: rgba(212, 198, 170, 0.16);
-  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(47, 122, 85, 0.18);
+  background: rgba(255, 255, 255, 0.72);
 }
 .section-yomogi-difference .compare-scene__content {
   padding: 14px 14px 18px;
-  background: linear-gradient(180deg, rgba(14, 24, 18, 0) 0%, rgba(14, 24, 18, 0.62) 55%, rgba(14, 24, 18, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.78) 55%, rgba(255, 255, 255, 0.92) 100%);
   margin-top: -44px;
 }
 .section-yomogi-difference .compare-world__label {
@@ -477,7 +492,7 @@ body {
 .section-yomogi-difference__body {
   line-height: var(--line-height-loose);
   margin-bottom: 2.2rem;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 .section-yomogi-difference__compare {
@@ -519,13 +534,13 @@ body {
   font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-kinari);
+  color: var(--color-ink-mute);
   opacity: 0.7;
 }
 
 .compare-world--premium .compare-world__label {
   opacity: 0.92;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 .compare-world__frame {
@@ -543,14 +558,14 @@ body {
 .compare-world__text {
   font-size: 12px;
   line-height: 1.8;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
   opacity: 0.88;
 }
 
 .compare-world__detail {
   font-size: 11px;
   line-height: 1.75;
-  color: var(--color-kinari);
+  color: var(--color-ink-mute);
   opacity: 0.82;
   margin-top: 0.2rem;
 }
@@ -562,21 +577,22 @@ body {
 
 /* ---------- 9. 沖縄よもぎ：背景・静けさ ---------- */
 .section-okinawa-yomogi {
-  background: linear-gradient(180deg, #132219 0%, #1e362c 42%, #1a2e24 100%);
+  background: radial-gradient(ellipse 90% 55% at 22% 18%, var(--light-top) 0%, transparent 62%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-mist) 55%, var(--color-sage-2) 100%);
 }
 
 .section-okinawa-yomogi::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 65% 65% at 65% 28%, var(--mist) 0%, transparent 58%);
+  background: radial-gradient(ellipse 65% 65% at 65% 28%, rgba(255, 236, 190, 0.26) 0%, transparent 62%);
   pointer-events: none;
 }
 
 .section-okinawa-yomogi__body {
   line-height: var(--line-height-loose);
   margin-bottom: 1em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 .section-okinawa-yomogi__body--accent {
@@ -586,14 +602,15 @@ body {
 
 /* ---------- 10. Kami融合：重なり ---------- */
 .section-kami-fusion {
-  background: #122218;
+  background: radial-gradient(ellipse 90% 55% at 50% 0%, var(--light-top) 0%, transparent 60%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 50%, var(--color-mist) 100%);
 }
 
 .section-kami-fusion::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 45% 70% at 22% 50%, rgba(24, 42, 34, 0.95) 0%, transparent 58%);
+  background: radial-gradient(ellipse 45% 70% at 22% 50%, rgba(231, 241, 231, 0.9) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -601,7 +618,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 45% 70% at 78% 50%, rgba(28, 50, 42, 0.9) 0%, transparent 58%);
+  background: radial-gradient(ellipse 45% 70% at 78% 50%, rgba(255, 236, 190, 0.25) 0%, transparent 62%);
   pointer-events: none;
 }
 
@@ -614,7 +631,7 @@ body {
 .section-kami-fusion__body {
   line-height: var(--line-height-loose);
   margin-top: 0.9em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
 }
 
 .section-kami-fusion__body--accent {
@@ -632,7 +649,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 90% 60% at 50% 50%, var(--light-soft) 0%, transparent 65%);
+  background: radial-gradient(ellipse 90% 60% at 50% 50%, rgba(255, 246, 224, 0.45) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -641,13 +658,13 @@ body {
   font-weight: 400;
   line-height: var(--line-height-loose);
   text-align: center;
-  color: var(--color-kinari);
-  opacity: 0.9;
+  color: var(--color-ink);
+  opacity: 0.86;
 }
 
 /* ---------- 12. まとめ：整理 ---------- */
 .section-summary {
-  background: linear-gradient(180deg, #132219 0%, #15261e 50%, #111c17 100%);
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 45%, var(--color-mist) 100%);
 }
 
 .summary-grid {
@@ -673,13 +690,13 @@ body {
 .summary-grid__label {
   font-size: clamp(15px, 3.5vw, 17px);
   font-weight: 400;
-  color: var(--color-kinari);
+  color: var(--color-ink);
   letter-spacing: 0.02em;
 }
 
 .summary-grid__text {
   font-size: 13px;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
   opacity: 0.88;
   line-height: 1.65;
 }
@@ -688,19 +705,20 @@ body {
   font-size: clamp(15px, 3.5vw, 17px);
   line-height: var(--line-height-loose);
   text-align: center;
-  color: var(--color-kinari);
-  opacity: 0.9;
+  color: var(--color-ink);
+  opacity: 0.8;
 }
 
 /* ---------- 13. 商品提示（静か・象徴） ---------- */
 .section-product-quiet {
-  background: linear-gradient(180deg, #0f1914 0%, #132219 35%, #15261e 55%, #0f1914 100%);
+  background: radial-gradient(ellipse 90% 55% at 50% 0%, var(--light-top) 0%, transparent 65%),
+              linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 50%, var(--color-mist) 100%);
 }
 
 .section-product-quiet__bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 75% 50% at 50% 40%, var(--light-soft) 0%, transparent 62%);
+  background: radial-gradient(ellipse 75% 50% at 50% 40%, rgba(255, 236, 190, 0.32) 0%, transparent 68%);
   pointer-events: none;
 }
 
@@ -714,13 +732,13 @@ body {
   font-weight: 400;
   letter-spacing: 0.05em;
   margin-bottom: 0.35em;
-  color: var(--color-white);
+  color: var(--color-ink);
 }
 
 .section-product-quiet__sub {
   font-size: 11px;
   letter-spacing: 0.24em;
-  color: var(--color-kinari);
+  color: var(--color-ink-mute);
   opacity: 0.85;
 }
 
@@ -728,7 +746,7 @@ body {
   margin-top: 0.9rem;
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
   opacity: 0.86;
   line-height: 1.8;
 }
@@ -765,13 +783,14 @@ body {
 
 /* ---------- 14. CTA：静かな確信 ---------- */
 .section-cta {
-  background: linear-gradient(180deg, #111c17 0%, #132219 28%, #15261e 58%, #111c17 100%);
+  background: radial-gradient(ellipse 90% 55% at 55% 10%, var(--glow-warm) 0%, transparent 62%),
+              linear-gradient(180deg, var(--color-paper) 0%, var(--color-white) 45%, var(--color-mist) 100%);
 }
 
 .section-cta__bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 55% at 50% 55%, var(--mist) 0%, transparent 62%);
+  background: radial-gradient(ellipse 80% 55% at 50% 55%, rgba(231, 241, 231, 0.55) 0%, transparent 68%);
   pointer-events: none;
 }
 
@@ -789,7 +808,7 @@ body {
 .cta-scene__product {
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
   opacity: 0.78;
   line-height: 1.9;
   margin-bottom: 1.1rem;
@@ -800,7 +819,7 @@ body {
   font-weight: 400;
   letter-spacing: 0.04em;
   line-height: 1.6;
-  color: var(--color-kinari);
+  color: var(--color-ink);
   opacity: 0.92;
 }
 
@@ -812,26 +831,26 @@ body {
 
 .cta-option {
   padding: clamp(16px, 4vw, 22px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(15, 26, 20, 0.08);
+  background: rgba(255, 255, 255, 0.72);
   display: grid;
   gap: 10px;
 }
 
 .cta-option--standard {
-  background: rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .cta-option--program {
-  border-color: rgba(212, 198, 170, 0.16);
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.18);
+  border-color: rgba(47, 122, 85, 0.18);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 20px 56px rgba(15, 26, 20, 0.12);
 }
 
 .cta-option__name {
   font-size: 12px;
   letter-spacing: 0.16em;
-  color: var(--color-kinari);
+  color: var(--color-ink);
   opacity: 0.9;
 }
 
@@ -839,7 +858,7 @@ body {
   font-size: 14px;
   letter-spacing: 0.02em;
   line-height: 1.9;
-  color: var(--color-kinari-soft);
+  color: var(--color-ink-soft);
   opacity: 0.88;
 }
 
@@ -848,7 +867,7 @@ body {
   font-size: 13px;
   letter-spacing: 0.02em;
   line-height: 1.8;
-  color: var(--color-kinari);
+  color: var(--color-ink);
   opacity: 0.92;
 }
 
@@ -857,8 +876,8 @@ body {
   letter-spacing: 0.04em;
   margin-left: 0.35rem;
   margin-right: 0.1rem;
-  color: var(--color-white);
-  text-shadow: 0 0 50px rgba(255, 255, 255, 0.03);
+  color: var(--color-ink);
+  text-shadow: 0 0 40px rgba(255, 246, 224, 0.7);
 }
 
 .cta-option__special-tax {
@@ -881,25 +900,25 @@ body {
   text-align: center;
   text-decoration: none;
   background: transparent;
-  color: var(--color-kinari);
-  border: 1px solid rgba(232, 228, 220, 0.28);
+  color: var(--color-ink);
+  border: 1px solid rgba(47, 122, 85, 0.22);
   transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
 .cta-option__btn:hover {
-  border-color: rgba(232, 228, 220, 0.5);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--color-kinari-soft);
+  border-color: rgba(47, 122, 85, 0.36);
+  background: rgba(47, 122, 85, 0.05);
+  color: var(--color-ink);
 }
 
 .cta-option__btn--program {
-  border-color: rgba(212, 198, 170, 0.24);
-  background: rgba(212, 198, 170, 0.04);
+  border-color: rgba(47, 122, 85, 0.32);
+  background: rgba(47, 122, 85, 0.06);
 }
 
 .cta-option__btn--program:hover {
-  border-color: rgba(212, 198, 170, 0.38);
-  background: rgba(212, 198, 170, 0.06);
+  border-color: rgba(47, 122, 85, 0.42);
+  background: rgba(47, 122, 85, 0.08);
 }
 
 @media (min-width: 820px) {
@@ -911,7 +930,7 @@ body {
 
 /* ---------- 15. クロージング：極小・余白＋1行 ---------- */
 .section-closing {
-  background: #0e1812;
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-paper) 60%, var(--color-mist) 100%);
   padding: clamp(140px, 32vw, 260px) 0;
   min-height: 100vh;
 }
@@ -920,8 +939,8 @@ body {
   font-size: clamp(16px, 3.8vw, 20px);
   line-height: var(--line-height-loose);
   text-align: center;
-  color: var(--color-kinari);
-  opacity: 0.85;
+  color: var(--color-ink);
+  opacity: 0.76;
 }
 
 /* スクロールフェード */
@@ -1044,7 +1063,7 @@ body {
   max-width: 720px;
   margin: 0 auto;
   padding: clamp(18px, 3.5vw, 28px) clamp(16px, 3.2vw, 22px);
-  background: linear-gradient(180deg, rgba(14, 24, 18, 0.72) 0%, rgba(14, 24, 18, 0.55) 55%, rgba(14, 24, 18, 0) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0%, rgba(255, 255, 255, 0.72) 55%, rgba(255, 255, 255, 0) 100%);
   backdrop-filter: blur(2px);
 }
 .scene--minimal .scene__media {
@@ -1099,13 +1118,13 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  box-shadow: 0 18px 44px rgba(0,0,0,0.22);
+  box-shadow: 0 18px 44px rgba(15, 26, 20, 0.12);
 }
 .compare-scene__col--normal .compare-scene__media {
-  filter: grayscale(12%) brightness(0.9);
+  filter: grayscale(6%) brightness(0.98);
 }
 .compare-scene__col--premium .compare-scene__media {
-  outline: 1px solid rgba(212,198,170,0.18);
+  outline: 1px solid rgba(47, 122, 85, 0.18);
 }
 .compare-scene__content {
   display: grid;
@@ -1184,7 +1203,7 @@ body {
   filter: saturate(1.06) contrast(1.06);
 }
 .section-why-blue-yomogi .scene--full-bleed .scene__content {
-  background: linear-gradient(180deg, rgba(14, 24, 18, 0.0) 0%, rgba(14, 24, 18, 0.62) 40%, rgba(14, 24, 18, 0.72) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.72) 40%, rgba(255, 255, 255, 0.88) 100%);
   padding-top: clamp(120px, 18vw, 200px);
 }
 
@@ -1207,7 +1226,7 @@ body {
   opacity: 0.84;
 }
 .section-okinawa-yomogi .scene--full-bleed .scene__content {
-  background: linear-gradient(180deg, rgba(14, 24, 18, 0.0) 0%, rgba(14, 24, 18, 0.58) 45%, rgba(14, 24, 18, 0.72) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.7) 45%, rgba(255, 255, 255, 0.88) 100%);
   padding-top: clamp(110px, 17vw, 190px);
 }
 
