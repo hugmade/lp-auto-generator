@@ -48,6 +48,8 @@ body {
 
 .lp {
   min-height: 100vh;
+  /* 1画面ごとの印象切替（体験型のリズム） */
+  scroll-snap-type: y mandatory;
 }
 
 .section {
@@ -58,6 +60,8 @@ body {
   padding: clamp(48px, 12vw, 96px) 0;
   position: relative;
   overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .section__inner {
@@ -76,6 +80,16 @@ body {
   color: var(--color-kinari);
   opacity: 0.75;
   margin-bottom: 1.8em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp {
+    scroll-snap-type: none;
+  }
+  .section {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
 }
 
 /* ---------- 1. ヒーロー：神秘・出会い ---------- */
@@ -160,6 +174,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* hero-product.jpg を主役に（象徴的に） */
+.section-hero__product-placeholder {
+  background-image: url('assets/hero-product.jpg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .section-hero__product-placeholder::before {
@@ -417,6 +439,34 @@ body {
   inset: 0;
   background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.08) 49.5%, rgba(255,255,255,0.02) 50%, transparent 100%);
   pointer-events: none;
+}
+
+/* 比較は「情報」より「空気」で伝える（2画像を主役に） */
+.section-yomogi-difference .compare-scene__media {
+  border-radius: 0;
+  height: clamp(220px, 42vw, 360px);
+  box-shadow: none;
+}
+.section-yomogi-difference .compare-scene__col {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.12);
+}
+.section-yomogi-difference .compare-scene__col--premium {
+  border-color: rgba(212, 198, 170, 0.16);
+  background: rgba(255, 255, 255, 0.02);
+}
+.section-yomogi-difference .compare-scene__content {
+  padding: 14px 14px 18px;
+  background: linear-gradient(180deg, rgba(14, 24, 18, 0) 0%, rgba(14, 24, 18, 0.62) 55%, rgba(14, 24, 18, 0.82) 100%);
+  margin-top: -44px;
+}
+.section-yomogi-difference .compare-world__label {
+  opacity: 0.85;
+}
+.section-yomogi-difference .compare-world__text {
+  opacity: 0.9;
 }
 
 .section-yomogi-difference__lead {
@@ -989,6 +1039,14 @@ body {
   filter: saturate(1.05) contrast(1.05);
   pointer-events: none;
 }
+.scene--full-bleed .scene__content {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(18px, 3.5vw, 28px) clamp(16px, 3.2vw, 22px);
+  background: linear-gradient(180deg, rgba(14, 24, 18, 0.72) 0%, rgba(14, 24, 18, 0.55) 55%, rgba(14, 24, 18, 0) 100%);
+  backdrop-filter: blur(2px);
+}
 .scene--minimal .scene__media {
   height: 0;
   opacity: 0;
@@ -1085,27 +1143,29 @@ body {
 
 /* 導入：抽象（光・水面）背景＋薄く全面画像 */
 .section-intro .scene--media-bg .scene__media {
-  background-image: url('assets/intro-abstract-water.jpg');
+  /* 画像は雰囲気の下敷きとして使用 */
+  background-image: url('assets/yomogi-field.jpg');
 }
 
 /* 違和感：暗くピント浅いイメージをスライス表示 */
 .section-dissonance .scene--media-slice .scene__media {
-  background-image: url('assets/dissonance-blur-dark.jpg');
+  background-image: url('assets/okinawa-nature.jpg');
 }
 
 /* 概念：浮遊する抽象（粒子/波紋） */
 .section-concept .scene--media-float .scene__media {
-  background-image: url('assets/concept-particles.jpg');
+  background-image: url('assets/okinawa-nature.jpg');
 }
 
 /* 商品の存在意義：左右配置（自然×設計の抽象） */
 .section-why-product .scene--media-side .scene__media {
-  background-image: url('assets/why-product-flow.jpg');
+  background-image: url('assets/okinawa-nature.jpg');
 }
 
 /* 商品提示（概念）：中央象徴（商品） */
 .section-product-concept .scene__media--product {
-  background-image: url('assets/product-visual-main.png');
+  /* 中央象徴：商品メインビジュアル */
+  background-image: url('assets/hero-product.jpg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -1118,12 +1178,22 @@ body {
   background-image: url('assets/yomogi-field.jpg');
 }
 
+/* 見せ場：青よもぎ（ビジュアル主役に寄せる） */
+.section-why-blue-yomogi .scene--full-bleed .scene__media {
+  opacity: 0.86;
+  filter: saturate(1.06) contrast(1.06);
+}
+.section-why-blue-yomogi .scene--full-bleed .scene__content {
+  background: linear-gradient(180deg, rgba(14, 24, 18, 0.0) 0%, rgba(14, 24, 18, 0.62) 40%, rgba(14, 24, 18, 0.72) 100%);
+  padding-top: clamp(120px, 18vw, 200px);
+}
+
 /* 比較：左右2画像 */
 .section-yomogi-difference .compare-scene__col--normal .compare-scene__media {
-  background-image: url('assets/compare-normal.jpg');
+  background-image: url('assets/yomogi-compare-left.jpg');
 }
 .section-yomogi-difference .compare-scene__col--premium .compare-scene__media {
-  background-image: url('assets/compare-premium.jpg');
+  background-image: url('assets/yomogi-compare-right.jpg');
 }
 
 /* 沖縄よもぎの優位性：全幅背景（自然 or マクロ） */
@@ -1132,27 +1202,37 @@ body {
   background-image: url('assets/okinawa-nature.jpg');
 }
 
+/* 見せ場：沖縄（ビジュアル主役） */
+.section-okinawa-yomogi .scene--full-bleed .scene__media {
+  opacity: 0.84;
+}
+.section-okinawa-yomogi .scene--full-bleed .scene__content {
+  background: linear-gradient(180deg, rgba(14, 24, 18, 0.0) 0%, rgba(14, 24, 18, 0.58) 45%, rgba(14, 24, 18, 0.72) 100%);
+  padding-top: clamp(110px, 17vw, 190px);
+}
+
 /* Kami融合：重なりの抽象を背景的に薄く */
 .section-kami-fusion .scene--media-overlay .scene__media {
-  background-image: url('assets/fusion-layers.jpg');
+  background-image: url('assets/okinawa-nature.jpg');
   opacity: 0.18;
   filter: blur(1px);
 }
 
 /* 体験：極小（ほぼなし） → ゴースト的に淡い背景 */
 .section-experience .scene__media--ghost {
-  background-image: url('assets/experience-light.jpg');
+  background-image: url('assets/okinawa-nature.jpg');
 }
 
 /* まとめ：テキスト支配＋サイドに淡い背景 */
 .section-summary .scene--media-side .scene__media {
-  background-image: url('assets/summary-muted.jpg');
+  background-image: url('assets/product-still.jpg');
   opacity: 0.16;
 }
 
 /* 商品提示（静か）：中央象徴（商品最終） */
 .section-product-quiet .scene__media--product {
-  background-image: url('assets/product-visual-final.png');
+  /* 静かで強いラスト：商品単体 */
+  background-image: url('assets/product-still.jpg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -1160,7 +1240,7 @@ body {
 
 /* CTA：スライス的に背景をかすかに敷く */
 .section-cta .scene--media-slice .scene__media {
-  background-image: url('assets/cta-texture.jpg');
+  background-image: url('assets/product-still.jpg');
   opacity: 0.18;
 }
 
