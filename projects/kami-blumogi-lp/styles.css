@@ -938,15 +938,6 @@ body {
   text-align: center;
 }
 
-.cta-scene__product {
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--color-ink-soft);
-  opacity: 0.78;
-  line-height: 1.9;
-  margin-bottom: 1.1rem;
-}
-
 .cta-scene__title {
   font-size: clamp(18px, 4.5vw, 24px);
   font-weight: 400;
@@ -962,15 +953,7 @@ body {
   gap: clamp(12px, 3.2vw, 18px);
 }
 
-.cta-scene__media {
-  width: 100%;
-  height: clamp(120px, 26vw, 180px);
-  border-radius: 12px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.9;
-}
+/* cta-scene__product / cta-scene__media は今回削除 */
 
 .cta-option {
   padding: clamp(16px, 4vw, 22px);
@@ -1004,6 +987,16 @@ body {
   line-height: 1.9;
   color: var(--color-ink-soft);
   opacity: 0.88;
+}
+
+.cta-option__price {
+  margin-top: 2px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  line-height: 1.8;
+  color: var(--color-ink);
+  opacity: 0.9;
+  text-align: center;
 }
 
 .cta-option__special {
@@ -1189,10 +1182,7 @@ body {
 }
 
 /* 14 CTA：畑（静かに） */
-.section-cta .cta-scene__media {
-  background-image: url('assets/yomogi-field.jpg');
-  opacity: 0.9;
-}
+/* 画像ブロックは今回削除 */
 
 /* 15 クロージング：hero-bg を淡く */
 .section-closing .scene__media--ghost {
