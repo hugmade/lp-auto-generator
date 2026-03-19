@@ -89,6 +89,7 @@ body {
   /* “中央カラム”は幅制御のみ。面は story パネル側で持つ */
   background: transparent;
   min-height: 100vh;
+  position: relative;
 }
 
 @media (min-width: 900px) {
@@ -99,6 +100,28 @@ body {
     /* 角丸・影は極力抑える */
     border-radius: 0;
     box-shadow: none;
+  }
+}
+
+/* 中央カラムに“1本の面”を通して連続感を出す（セクションで切らない） */
+.kb-mobile-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0.42) 18%,
+    rgba(255, 255, 255, 0.40) 72%,
+    rgba(255, 255, 255, 0.30) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+@media (min-width: 900px) {
+  .kb-mobile-frame::before {
+    border-left: 1px solid rgba(15, 26, 20, 0.04);
+    border-right: 1px solid rgba(15, 26, 20, 0.04);
   }
 }
 
@@ -129,11 +152,12 @@ body {
    - 基本 9:16 / 必要なら伸びる
    ========================================================= */
 .kb-story-section {
-  padding: 20px 0;
+  /* “カード間の隙間”に見えない程度の呼吸 */
+  padding: 10px 0;
 }
 @media (min-width: 768px) {
   .kb-story-section {
-    padding: 26px 0;
+    padding: 14px 0;
   }
 }
 
@@ -154,10 +178,10 @@ body {
 }
 @media (min-width: 900px) {
   .kb-story-inner {
-    border-radius: 16px;
-    outline: 1px solid rgba(15, 26, 20, 0.05);
-    outline-offset: -1px;
-    background: rgba(255, 255, 255, 0.28);
+    /* 見た目は“連続”優先：角丸/枠線/面の独立感は出さない */
+    border-radius: 0;
+    outline: none;
+    background: transparent;
   }
 }
 
