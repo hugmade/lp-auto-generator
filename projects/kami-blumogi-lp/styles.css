@@ -254,6 +254,8 @@ body {
   padding-top: clamp(64px, 13vh, 104px);
   padding-bottom: clamp(44px, 10vh, 80px);
   gap: 16px;
+  /* 背景の“抜け”中心に合わせて横位置を微調整 */
+  transform: translateX(6px);
 }
 
 .story-frame--hero::before {
