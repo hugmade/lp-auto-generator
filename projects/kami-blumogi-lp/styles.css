@@ -909,6 +909,16 @@ body {
   gap: clamp(12px, 3.2vw, 18px);
 }
 
+.cta-scene__media {
+  width: 100%;
+  height: clamp(120px, 26vw, 180px);
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
 .cta-option {
   padding: clamp(16px, 4vw, 22px);
   border: none;
@@ -1009,6 +1019,123 @@ body {
   }
 }
 
+/* =========================================================
+   セクションごとの画像割当（assets が足りない場合は抽象グラデで補完）
+   ========================================================= */
+
+/* 2 導入（抽象） */
+.section-intro .scene__media {
+  background-image: url('assets/hero-bg.png');
+  opacity: 0.18;
+  filter: blur(1px);
+}
+
+/* 3 違和感（静かな葉） */
+.section-dissonance .scene__media {
+  background-image: url('assets/okinawa-leaf.jpg');
+  opacity: 0.22;
+  filter: blur(1px);
+}
+
+/* 4 概念（抽象） */
+.section-concept .scene__media {
+  background-image: url('assets/hero-bg.png');
+  opacity: 0.16;
+  filter: blur(1px);
+}
+
+/* 5 商品の存在意義（手元） */
+.section-why-product .scene__media {
+  background-image: url('assets/yomogi-hand.jpg');
+  opacity: 0.22;
+}
+
+/* 6 商品提示（概念）：商品画像 */
+.section-product-concept .scene__media--product {
+  display: grid;
+  place-items: center;
+  background-image: url('assets/product-main.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 7 青よもぎ：畑 */
+.section-why-blue-yomogi .scene__media {
+  background-image: url('assets/yomogi-field.jpg');
+  opacity: 0.95;
+}
+
+/* 8 比較：compare-normal.png を左右分割（左=一般 / 右=青よもぎ） */
+.section-yomogi-difference .compare-scene__media {
+  background-image: url('assets/compare-normal.png');
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+}
+.section-yomogi-difference .compare-scene__col--normal .compare-scene__media {
+  background-position: left center;
+}
+.section-yomogi-difference .compare-scene__col--premium .compare-scene__media {
+  background-position: right center;
+}
+
+/* 9 沖縄：葉マクロ */
+.section-okinawa-yomogi .scene__media {
+  background-image: url('assets/okinawa-leaf.jpg');
+  opacity: 0.95;
+}
+
+/* 10 融合：抽象（hero-bg を薄く） */
+.section-kami-fusion .scene__media {
+  background-image: url('assets/hero-bg.png');
+  opacity: 0.16;
+  filter: blur(1px);
+}
+
+/* 11 体験：芽（淡く） */
+.section-experience .scene__media--ghost {
+  background-image: url('assets/yomogi-bud.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+}
+
+/* 12 まとめ：商品（淡く） */
+.section-summary .scene__media {
+  background-image: url('assets/product-main.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+}
+
+/* 13 ラスト商品提示：商品画像 */
+.section-product-quiet .scene__media--product {
+  display: grid;
+  place-items: center;
+  background-image: url('assets/product-main.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 14 CTA：畑（静かに） */
+.section-cta .cta-scene__media {
+  background-image: url('assets/yomogi-field.jpg');
+  opacity: 0.9;
+}
+
+/* 15 クロージング：hero-bg を淡く */
+.section-closing .scene__media--ghost {
+  background-image: url('assets/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.14;
+}
+
 /* ---------- 15. クロージング：極小・余白＋1行 ---------- */
 .section-closing {
   background: none;
@@ -1092,13 +1219,12 @@ body {
   opacity: 0.95;
 }
 
-/* 今フェーズ：背景画像は使用しない（構造統一優先） */
+/* 画像あり運用に戻す（全セクションに必ず画像） */
 .scene__media,
 .compare-scene__media,
 .scene__media--product,
 .scene__media--ghost {
-  display: none !important;
-  background-image: none !important;
+  display: block;
 }
 
 /* 配置バリエーション */
