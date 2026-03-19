@@ -1068,11 +1068,48 @@ body {
   max-width: 720px;
   margin: 0 auto;
   padding: clamp(10px, 2.4vw, 18px) clamp(10px, 3vw, 22px);
+  position: relative;
+  z-index: 1;
 }
 
 /* 右カラム（メディア）を廃止するための保険 */
 .hero-scene__media {
   display: none;
+}
+
+/* hero-bg-sp.png を中央の縦長ビジュアルとして立てる（擬似要素のみ） */
+.hero-scene__content::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: clamp(240px, 55vw, 320px);
+  height: clamp(420px, 72vh, 620px);
+  background-image: url('assets/hero-bg-sp.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  opacity: 0.98;
+  z-index: -1;
+}
+
+.section-hero__logo {
+  display: block;
+  width: clamp(34px, 10vw, 46px);
+  height: auto;
+  margin: 0 auto 1rem;
+  transform: translateY(-0.1rem);
+  opacity: 0.9;
+}
+
+.section-hero__title {
+  margin-bottom: 0.35em;
+}
+
+.section-hero__sub {
+  margin-top: 0.1rem;
 }
 
 /* 比較：左右2画像＋内容 */
