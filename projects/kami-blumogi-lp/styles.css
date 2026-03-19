@@ -591,6 +591,32 @@ body {
   color: var(--color-ink-soft);
 }
 
+.compare-panel {
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 14px;
+}
+.compare-panel__image {
+  width: 100%;
+  height: clamp(220px, 46vw, 360px);
+  border-radius: 14px;
+  outline: 1px solid rgba(255, 255, 255, 0.55);
+  outline-offset: -1px;
+}
+.compare-panel__desc {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.compare-panel__col {
+  padding: 0 2px;
+}
+@media (min-width: 768px) {
+  .compare-panel__desc {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+}
 .section-yomogi-difference__compare {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
@@ -1019,6 +1045,25 @@ body {
   }
 }
 
+.story-frame--hero {
+  /* 上質化：薄い白ラインで締める（補助的に） */
+  outline: 1px solid rgba(255, 255, 255, 0.65);
+  outline-offset: -1px;
+}
+
+.section-hero__title {
+  position: relative;
+}
+.section-hero__title::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin: 14px auto 0;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0.9;
+}
+
 /* =========================================================
    セクションごとの画像割当（assets が足りない場合は抽象グラデで補完）
    ========================================================= */
@@ -1067,17 +1112,12 @@ body {
 }
 
 /* 8 比較：compare-normal.png を左右分割（左=一般 / 右=青よもぎ） */
-.section-yomogi-difference .compare-scene__media {
+/* 8 比較：1枚画像としてそのまま表示 */
+.section-yomogi-difference .compare-panel__image {
   background-image: url('assets/compare-normal.png');
-  background-size: 200% 100%;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  border-radius: 12px;
-}
-.section-yomogi-difference .compare-scene__col--normal .compare-scene__media {
-  background-position: left center;
-}
-.section-yomogi-difference .compare-scene__col--premium .compare-scene__media {
-  background-position: right center;
 }
 
 /* 9 沖縄：葉マクロ */
@@ -1212,11 +1252,24 @@ body {
 .scene__media {
   width: 100%;
   height: clamp(160px, 36vw, 320px);
-  border-radius: 8px;
+  border-radius: 14px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.95;
+  outline: 1px solid rgba(255, 255, 255, 0.55);
+  outline-offset: -1px;
+}
+
+/* “置いただけ”感を減らす：画像のサイズ/余白をセクション意図で統一 */
+.scene--text-dominant .scene__media {
+  height: clamp(120px, 24vw, 180px);
+  opacity: 0.22;
+}
+.scene--media-dominant .scene__media,
+.scene--full-bleed .scene__media {
+  height: clamp(220px, 46vw, 360px);
+  opacity: 0.92;
 }
 
 /* 画像あり運用に戻す（全セクションに必ず画像） */
