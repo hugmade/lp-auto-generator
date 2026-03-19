@@ -304,52 +304,42 @@ body {
   position: relative;
   z-index: 2;
   height: 100%;
-  --hero-pad: clamp(18px, 5vw, 28px);
-  --hero-prod-w: clamp(132px, 34vw, 190px);
-  position: relative;
   text-align: center;
-  padding: var(--hero-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(18px, 5vw, 28px);
+  gap: clamp(10px, 2.4vh, 18px);
 }
 
 .kb-hero-logo {
   display: block;
   width: clamp(34px, 8.8vw, 46px);
   height: auto;
-  opacity: 0.86;
-  position: absolute;
-  left: 50%;
-  top: 7%;
-  transform: translateX(-50%);
+  opacity: 0.9;
+  margin-top: clamp(10px, 2.2vh, 16px);
 }
 
 .kb-hero-title {
-  position: absolute;
-  left: 50%;
-  top: 22%;
-  transform: translateX(-50%);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-size: clamp(44px, 12vw, 72px);
+  font-size: clamp(28px, 7.8vw, 44px);
   font-weight: 400;
-  letter-spacing: 0.12em;
-  line-height: 1.22;
+  letter-spacing: 0.08em;
+  line-height: 1.18;
   color: rgba(15, 26, 20, 0.92);
-  text-shadow: 0 0 34px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
 .kb-hero-product-wrap {
-  position: absolute;
-  left: var(--hero-pad);
-  bottom: clamp(22px, 5.2vh, 46px);
-  width: var(--hero-prod-w);
-  display: block;
-  z-index: 3;
+  width: min(78%, 320px);
+  margin-top: clamp(6px, 1.4vh, 12px);
+  z-index: 3; /* fade より前面 */
 }
 
 .kb-hero-product {
   width: 100%;
   height: auto;
-  max-height: none;
+  max-height: min(42svh, 360px);
   object-fit: contain;
   /* 透過PNGが無い現状の代替：白を背景に馴染ませる */
   mix-blend-mode: multiply;
@@ -357,19 +347,10 @@ body {
 }
 
 .kb-hero-copy {
-  position: absolute;
-  right: var(--hero-pad);
-  bottom: clamp(22px, 5.2vh, 46px);
-  left: calc(var(--hero-pad) + var(--hero-prod-w) + clamp(14px, 3.4vw, 22px));
-  text-align: left;
+  width: 100%;
+  max-width: 26em;
+  text-align: center;
   z-index: 4; /* fade より前面で確実に可読 */
-}
-
-@media (max-width: 360px) {
-  /* 320px級で右カラムが潰れすぎないよう、商品を少しだけ縮める */
-  .kb-hero-inner {
-    --hero-prod-w: 118px;
-  }
 }
 
 .kb-hero-heading {
@@ -392,16 +373,10 @@ body {
 
 @media (min-width: 900px) {
   .kb-hero-title {
-    font-size: clamp(54px, 4.6vw, 74px);
-    top: 20%;
+    font-size: clamp(34px, 3.2vw, 44px);
   }
-  .kb-hero-logo {
-    top: 6.5%;
-    opacity: 0.82;
-  }
-  .kb-hero-product-wrap,
-  .kb-hero-copy {
-    bottom: clamp(26px, 5.2vh, 52px);
+  .kb-hero-product-wrap {
+    width: min(72%, 300px);
   }
 }
 
