@@ -168,7 +168,11 @@ body {
   /* 背景は全体グラデーションに統一（画像なし） */
   background: none;
   text-align: center;
-  padding: 96px 0 72px;
+  /* 1セクション = 1画面（基準） */
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 0;
 }
 
 .section-hero__bg {
@@ -188,18 +192,77 @@ body {
   z-index: 2;
 }
 
+/* =========================================================
+   共通：1画面 = 縦長ボックス（ストーリーズ比率）
+   - 今後ほかセクションにも転用可能
+   ========================================================= */
+.story-frame {
+  width: 100%;
+  max-width: 560px; /* 中央カラム内で収める */
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  /* 端末のUIを考慮しつつ、1画面で完結 */
+  height: min(88svh, calc((100vw - 36px) * 16 / 9));
+  max-height: 88svh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+@media (min-width: 768px) {
+  .story-frame {
+    width: 100%;
+    max-width: 560px;
+    height: min(86svh, 720px);
+    max-height: 86svh;
+  }
+}
+
+.story-frame__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(26px, 6vw, 44px) clamp(18px, 5vw, 34px);
+  gap: 10px;
+  z-index: 1;
+}
+
+/* ヒーロー固有 */
+.story-frame--hero {
+  background-image: url('assets/hero-bg-sp.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.story-frame--hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* 薄いオーバーレイ（光と空気感を潰さない） */
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 10%, rgba(255, 255, 255, 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 55%, rgba(237, 244, 232, 0.10) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .section-hero__title {
-  font-size: clamp(32px, 9vw, 46px);
+  font-size: clamp(30px, 8.6vw, 42px);
   font-weight: 400;
   letter-spacing: 0.055em;
   line-height: 1.22;
   color: rgba(15, 26, 20, 0.92);
-  margin-bottom: 0.55em;
+  margin-bottom: 0.15em;
   text-shadow: none;
 }
 
 .section-hero__sub {
-  font-size: 15px;
+  font-size: clamp(13px, 3.7vw, 15px);
   font-weight: 300;
   line-height: 2.05;
   color: rgba(15, 26, 20, 0.72);
@@ -208,9 +271,17 @@ body {
   letter-spacing: 0.028em;
 }
 
+.section-hero__logo {
+  display: block;
+  width: clamp(34px, 9vw, 46px);
+  height: auto;
+  margin-bottom: clamp(10px, 2.8vw, 16px);
+  opacity: 0.9;
+}
+
 @media (min-width: 768px) {
   .section-hero {
-    padding: 120px 0 92px;
+    padding: 28px 0;
   }
 }
 
@@ -1057,60 +1128,8 @@ body {
   background: none;
 }
 
-/* Hero: コンテンツと画像の2カラム（上は1カラム） */
-.hero-scene {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(16px, 3.5vw, 24px);
-  align-items: center;
-}
-.hero-scene__content {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: clamp(10px, 2.4vw, 18px) clamp(10px, 3vw, 22px);
-  position: relative;
-  z-index: 1;
-}
-
-/* 右カラム（メディア）を廃止するための保険 */
-.hero-scene__media {
-  display: none;
-}
-
-/* hero-bg-sp.png を中央の縦長ビジュアルとして立てる（擬似要素のみ） */
-.hero-scene__content::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  transform: translate(-50%, -50%);
-  width: clamp(240px, 55vw, 320px);
-  height: clamp(420px, 72vh, 620px);
-  background-image: url('assets/hero-bg-sp.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  border-radius: 12px;
-  opacity: 0.98;
-  z-index: -1;
-}
-
-.section-hero__logo {
-  display: block;
-  width: clamp(34px, 10vw, 46px);
-  height: auto;
-  margin: 0 auto 1rem;
-  transform: translateY(-0.1rem);
-  opacity: 0.9;
-}
-
-.section-hero__title {
-  margin-bottom: 0.35em;
-}
-
-.section-hero__sub {
-  margin-top: 0.1rem;
-}
+/* Heroの旧背景配置（hero-scene__content::before）は廃止。
+   現在は共通の .story-frame で 9:16 の中に収める。 */
 
 /* 比較：左右2画像＋内容 */
 .compare-scene {
