@@ -203,6 +203,81 @@ body {
 }
 
 /* =========================================================
+   トップ（PC/SP 完全分離）— 表示安定を最優先
+   ========================================================= */
+.hero-top {
+  position: relative;
+  overflow: hidden;
+}
+.hero-top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 85% 55% at 50% 12%, rgba(255, 255, 255, 0.26) 0%, transparent 64%),
+    radial-gradient(ellipse 70% 60% at 50% 55%, rgba(255, 255, 255, 0.14) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(237, 244, 232, 0.12) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-top__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: clamp(64px, 13vh, 104px) clamp(18px, 5vw, 34px) clamp(44px, 10vh, 80px);
+  gap: 16px;
+  z-index: 1;
+  transform: translateX(6px);
+}
+
+/* SP: 全面（余白なし） */
+.hero-top--sp {
+  width: 100vw;
+  height: 100svh;
+  border-radius: 0;
+  background-image: url('assets/hero-bg-sp.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+/* PC: 非表示がデフォルト（SP優先） */
+.hero-top--pc {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .hero-top--sp {
+    display: none;
+  }
+  .hero-top--pc {
+    display: block;
+    width: min(760px, calc(100% - 56px));
+    height: 70vh; /* 60〜75vh */
+    margin: 0 auto;
+    border-radius: 16px;
+    background-image: url('assets/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    outline: 1px solid rgba(255, 255, 255, 0.55);
+    outline-offset: -1px;
+  }
+  .section-hero {
+    min-height: 70vh;
+  }
+  .hero-top--pc .hero-top__content {
+    justify-content: center;
+    padding: clamp(26px, 6vw, 44px) clamp(18px, 5vw, 34px);
+    transform: none;
+  }
+}
+
+/* =========================================================
    共通：1画面 = 縦長ボックス（ストーリーズ比率）
    - 今後ほかセクションにも転用可能
    ========================================================= */
