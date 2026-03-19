@@ -199,6 +199,7 @@ body {
   height: 100svh;
   min-height: 100svh;
   overflow: hidden;
+  isolation: isolate; /* blend をhero内に閉じる */
 }
 @media (min-width: 900px) {
   .kb-hero {
@@ -228,7 +229,7 @@ body {
   inset: 0;
   background:
     radial-gradient(ellipse 90% 60% at 50% 12%, rgba(255, 255, 255, 0.18) 0%, transparent 62%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.00) 40%, rgba(255, 255, 255, 0.68) 72%, rgba(255, 255, 255, 0.92) 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.00) 46%, rgba(255, 255, 255, 0.62) 70%, rgba(255, 255, 255, 0.92) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -237,12 +238,12 @@ body {
   position: relative;
   z-index: 2;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   align-items: center;
-  justify-content: flex-start;
   text-align: center;
-  padding: clamp(18px, 4.6vh, 34px) 18px clamp(18px, 4.2vh, 34px);
+  padding: clamp(28px, 7vh, 72px) 18px clamp(18px, 4.2vh, 34px);
+  row-gap: clamp(10px, 2.2vh, 18px);
 }
 
 .kb-hero-logo {
@@ -254,8 +255,8 @@ body {
 }
 
 .kb-hero-title {
-  margin-top: 12px;
-  font-size: clamp(28px, 7.6vw, 40px);
+  margin-top: clamp(8px, 1.8vh, 14px);
+  font-size: clamp(32px, 8.6vw, 46px);
   font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 1.12;
@@ -266,24 +267,28 @@ body {
 
 .kb-hero-product-wrap {
   width: min(86%, 420px);
-  margin-top: clamp(18px, 6vh, 34px);
-  flex: 1;
+  margin-top: clamp(8px, 2.6vh, 18px);
   display: grid;
   place-items: center;
+  align-self: center;
 }
 
 .kb-hero-product {
   width: 100%;
   height: auto;
-  max-height: min(48svh, 420px);
+  max-height: min(44svh, 440px);
   object-fit: contain;
   filter: drop-shadow(0 18px 36px rgba(15, 26, 20, 0.18));
+  /* 透過PNGがないため、白背景を馴染ませる（DISARONNOの“浮かぶ主役”に寄せる） */
+  mix-blend-mode: multiply;
 }
 
 .kb-hero-copy {
   width: 100%;
   padding-top: clamp(18px, 4vh, 28px);
   padding-bottom: clamp(10px, 2.6vh, 18px);
+  position: relative;
+  z-index: 3; /* fade より前面で確実に可読 */
 }
 
 .kb-hero-heading {
@@ -298,10 +303,25 @@ body {
   margin-top: 10px;
   font-size: clamp(13px, 3.6vw, 15px);
   font-weight: 300;
-  line-height: 2.0;
+  line-height: 1.9;
   letter-spacing: 0.028em;
-  color: rgba(15, 26, 20, 0.84);
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.55);
+  color: rgba(15, 26, 20, 0.88);
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.6);
+}
+
+@media (min-width: 900px) {
+  /* PCで説明文が消えないよう、商品を少し抑えて下段を確保 */
+  .kb-hero-product {
+    max-height: min(34vh, 360px);
+  }
+  .kb-hero-title {
+    font-size: clamp(40px, 3.6vw, 48px);
+    margin-top: 18px;
+  }
+  .kb-hero-copy {
+    padding-top: clamp(16px, 2.8vh, 22px);
+    padding-bottom: clamp(14px, 3.2vh, 26px);
+  }
 }
 
 /* ヒーローは今回は「背景＋中央コピーのみ」（商品要素なし） */
