@@ -265,13 +265,6 @@ body {
   min-height: 100vh;
   max-width: 430px;
   margin: 0 auto;
-  background-image:
-    radial-gradient(ellipse 90% 60% at 50% 12%, rgba(255, 255, 255, 0.18) 0%, transparent 62%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.00) 66%, rgba(255, 255, 255, 0.52) 78%, rgba(255, 255, 255, 0.94) 100%),
-    url('assets/hero-bg.png');
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: center, center, center;
-  background-repeat: no-repeat;
 }
 @media (min-width: 900px) {
   .kb-hero {
@@ -290,6 +283,17 @@ body {
 /* 上は空気、下は白へフェードして文字を読ませる */
 .kb-hero-fade {
   display: none;
+}
+
+/* 背景は hero コンテンツではなく story パネル全面に適用 */
+.kb-story-inner--hero {
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% 12%, rgba(255, 255, 255, 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.00) 66%, rgba(255, 255, 255, 0.52) 78%, rgba(255, 255, 255, 0.94) 100%),
+    url('assets/hero-bg.png');
+  background-size: 100% 100%, 100% 100%, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat;
 }
 
 .kb-hero-inner {
