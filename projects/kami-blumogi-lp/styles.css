@@ -86,15 +86,15 @@ body {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  /* ごく薄い面（箱感・強い枠は出さない） */
-  background: rgba(255, 255, 255, 0.42);
+  /* “中央カラム”は幅制御のみ。面は story パネル側で持つ */
+  background: transparent;
   min-height: 100vh;
 }
 
 @media (min-width: 900px) {
   .kb-mobile-frame {
-    width: min(100%, 520px);
-    max-width: 520px;
+    width: min(100%, clamp(420px, 34vw, 460px));
+    max-width: 460px;
     padding-inline: 0;
     /* 角丸・影は極力抑える */
     border-radius: 0;
@@ -122,6 +122,48 @@ body {
   .section {
     padding: 84px 0;
   }
+}
+
+/* =========================================================
+   1セクション = ストーリーズ（9:16）土台
+   - 基本 9:16 / 必要なら伸びる
+   ========================================================= */
+.kb-story-section {
+  padding: 20px 0;
+}
+@media (min-width: 768px) {
+  .kb-story-section {
+    padding: 26px 0;
+  }
+}
+
+.kb-story-inner {
+  width: 100%;
+  position: relative; /* 将来 absolute 配置の基準 */
+  overflow: visible; /* 9:16 を基準にしつつ、内容が多い場合は伸びられる */
+  aspect-ratio: 9 / 16;
+  min-height: 88svh;
+  height: auto; /* 内容が多い場合は伸びる */
+  background: transparent;
+}
+
+@media (max-width: 899.98px) {
+  .kb-story-inner {
+    border-radius: 0;
+  }
+}
+@media (min-width: 900px) {
+  .kb-story-inner {
+    border-radius: 16px;
+    outline: 1px solid rgba(15, 26, 20, 0.05);
+    outline-offset: -1px;
+    background: rgba(255, 255, 255, 0.28);
+  }
+}
+
+/* 画像や背景を“面”で切り抜きたいパネルだけ、明示的に clip */
+.kb-story-inner--hero {
+  overflow: hidden;
 }
 
 /* .kb-mobile-frame 内なので幅は親に合わせる */
@@ -196,15 +238,15 @@ body {
 .kb-hero {
   position: relative;
   width: 100%;
-  height: 100svh;
-  min-height: 100svh;
+  height: 100%;
+  min-height: 100%;
   overflow: hidden;
   isolation: isolate; /* blend をhero内に閉じる */
 }
 @media (min-width: 900px) {
   .kb-hero {
-    height: clamp(520px, 70vh, 720px);
-    min-height: clamp(520px, 70vh, 720px);
+    height: 100%;
+    min-height: 100%;
   }
   .section-hero {
     min-height: auto;
