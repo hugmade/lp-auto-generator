@@ -41,6 +41,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -49,62 +50,71 @@ body {
   font-size: clamp(15px, 3.8vw, 17px);
   line-height: var(--line-height-body);
   color: var(--color-ink);
-  /* LP全体：白〜淡いグリーンのグラデーション */
-  background: linear-gradient(180deg, #f8f9f4 0%, #edf4e8 100%);
-  background-attachment: fixed;
+  background: transparent; /* 背景は .kb-page-bg に委譲 */
   -webkit-font-smoothing: antialiased;
 }
 
-.lp {
+/* =========================================================
+   土台レイアウト：PC＝中央スマホ幅カラム / SP＝全画面
+   DISARONNO 型エディトリアル
+   ========================================================= */
+.kb-page {
   min-height: 100vh;
-  /* 1画面ごとの印象切替（体験型のリズム） */
-  scroll-snap-type: y mandatory;
   position: relative;
+  overflow-x: hidden;
+}
+
+.kb-page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, #f8f9f4 0%, #edf4e8 100%);
+  background-attachment: scroll;
+  pointer-events: none;
+}
+
+.kb-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 中央カラム本体：SP＝100%、PC＝スマホ幅程度で中央寄せ */
+.kb-mobile-frame {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  /* ごく薄い面（箱感・強い枠は出さない） */
+  background: rgba(255, 255, 255, 0.42);
+  min-height: 100vh;
+}
+
+@media (min-width: 900px) {
+  .kb-mobile-frame {
+    width: min(100%, 520px);
+    max-width: 520px;
+    padding-inline: 0;
+    /* 角丸・影は極力抑える */
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 .section {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(48px, 12vw, 96px) 0;
   position: relative;
   overflow: hidden;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
-/* 今フェーズ：構造統一を優先（スクロールスナップは無効化） */
-.lp {
-  scroll-snap-type: none;
-}
-.section {
   scroll-snap-align: none;
   scroll-snap-stop: normal;
-  min-height: auto;
 }
 
-.section__inner {
-  width: var(--container-narrow);
-  max-width: var(--container-max);
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-/* 中央カラム（スマホ全幅／PCは中央に一本） */
-.section__inner {
-  width: 100%;
-  max-width: 560px; /* 520〜600px の範囲で中央カラム */
-  padding: 0 18px;
-}
-@media (min-width: 768px) {
-  .section__inner {
-    padding: 0 22px;
-  }
-}
-
-/* 各セクション：縦に積み重なる構造に統一 */
+/* セクション内余白：土台統一（中身は変えない） */
 .section {
   padding: 64px 0;
 }
@@ -114,41 +124,18 @@ body {
   }
 }
 
-/* =========================================================
-   中央カラム：1本の縦長“面”を .lp 全体に通す
-   （セクションごとの箱感をなくす）
-   ========================================================= */
-.lp::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
+/* .kb-mobile-frame 内なので幅は親に合わせる */
+.section__inner {
   width: 100%;
-  background: rgba(255, 255, 255, 0.48);
-  border-left: 1px solid rgba(15, 26, 20, 0.05);
-  border-right: 1px solid rgba(15, 26, 20, 0.05);
-  pointer-events: none;
-  z-index: 0;
+  max-width: none;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  padding: 0 18px;
 }
-
 @media (min-width: 768px) {
-  .lp::before {
-    left: 50%;
-    transform: translateX(-50%);
-    /* PCでは“舞台”として少し広げる */
-    width: min(760px, calc(100% - 56px));
-    background: rgba(255, 255, 255, 0.44);
-    border-left: 1px solid rgba(15, 26, 20, 0.06);
-    border-right: 1px solid rgba(15, 26, 20, 0.06);
-  }
-}
-
-/* さらに広い画面では、もう一段だけ舞台幅を確保 */
-@media (min-width: 1100px) {
-  .lp::before {
-    width: 860px;
-    background: rgba(255, 255, 255, 0.42);
+  .section__inner {
+    padding: 0 22px;
   }
 }
 
@@ -163,9 +150,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp {
-    scroll-snap-type: none;
-  }
   .section {
     scroll-snap-align: none;
     scroll-snap-stop: normal;
@@ -174,15 +158,18 @@ body {
 
 /* ---------- 1. ヒーロー：神秘・出会い ---------- */
 .section-hero {
-  /* 背景は全体グラデーションに統一（画像なし） */
   background: none;
   text-align: center;
-  /* 1セクション = 1画面（基準） */
   min-height: 100svh;
-  display: grid;
-  place-items: center;
-  /* SPは全面で没入（余白ゼロ） */
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
   padding: 0;
+  width: 100%;
+}
+.section-hero .section-hero__inner {
+  width: 100%;
+  max-width: 100%;
 }
 
 .section-hero__bg {
@@ -234,10 +221,11 @@ body {
   transform: translateX(6px);
 }
 
-/* SP: 全面（余白なし） */
+/* SP: 全面（余白なし・横スクロール出さない） */
 .hero-top--sp {
-  width: 100vw;
+  width: 100%;
   height: 100svh;
+  min-height: 100svh;
   border-radius: 0;
   background-image: url('assets/hero-bg-sp.png');
   background-size: cover;
@@ -256,16 +244,15 @@ body {
   }
   .hero-top--pc {
     display: block;
-    width: min(760px, calc(100% - 56px));
+    width: 100%;
     height: 70vh; /* 60〜75vh */
     margin: 0 auto;
-    border-radius: 16px;
+    border-radius: 0;
     background-image: url('assets/hero-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    outline: 1px solid rgba(255, 255, 255, 0.55);
-    outline-offset: -1px;
+    outline: none;
   }
   .section-hero {
     min-height: 70vh;
