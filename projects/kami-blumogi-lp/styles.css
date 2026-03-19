@@ -272,8 +272,8 @@ body {
 .section-hero__title {
   font-size: clamp(34px, 9.2vw, 46px);
   font-weight: 400;
-  letter-spacing: 0.08em;
-  line-height: 1.05;
+  letter-spacing: 0.06em;
+  line-height: 1.35; /* 縦組みの文字間（読みとして自然に） */
   color: rgba(15, 26, 20, 0.92);
   margin-bottom: 0;
   text-shadow: 0 0 28px rgba(255, 255, 255, 0.55);
@@ -282,6 +282,7 @@ body {
   text-orientation: mixed;
   white-space: normal;
   transform: translateY(-4px);
+  text-align: start;
 }
 
 .section-hero__sub {
@@ -290,7 +291,7 @@ body {
   line-height: 2.05;
   color: rgba(15, 26, 20, 0.84);
   opacity: 1;
-  margin-top: 10px;
+  margin-top: 18px;
   margin-bottom: 0;
   letter-spacing: 0.028em;
   display: inline-block;
