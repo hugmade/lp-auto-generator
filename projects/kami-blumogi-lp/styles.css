@@ -260,32 +260,55 @@ body {
   background-repeat: no-repeat;
 }
 
-/* PC：横長ヒーロー（中央の白カラム幅に収める / hero-bg.png） */
+/* PC/SP を確実に分離して、PCで消えないようにする */
+.story-frame--hero-pc {
+  display: none;
+}
+
 @media (min-width: 900px) {
-  .section-hero {
-    padding: 0;
-    min-height: 80vh;
+  .story-frame--hero-sp {
+    display: none;
+  }
+  .story-frame--hero-pc {
+    display: block;
   }
 
-  .story-frame--hero {
+  .section-hero {
+    padding: 0;
+    min-height: 70vh;
+  }
+
+  .story-frame--hero-pc {
     /* 中央の白カラム幅（.lp::before と同等）に合わせる */
     max-width: min(760px, calc(100% - 56px));
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     max-height: none;
     aspect-ratio: auto;
     border-radius: 16px;
     background-image: url('assets/hero-bg.png');
+    background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     outline: 1px solid rgba(255, 255, 255, 0.55);
     outline-offset: -1px;
+    margin: 0 auto;
   }
 
-  .story-frame--hero::before {
-    /* PCは横長なので中心に淡い光 */
+  .story-frame--hero-pc::before {
+    content: \"\";
+    position: absolute;
+    inset: 0;
     background:
       radial-gradient(ellipse 70% 70% at 50% 35%, rgba(255, 255, 255, 0.18) 0%, transparent 70%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.04) 60%, rgba(237, 244, 232, 0.10) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .story-frame--hero-pc .story-frame__content {
+    justify-content: center;
+    padding-top: clamp(26px, 6vw, 44px);
+    transform: none;
   }
 }
 
